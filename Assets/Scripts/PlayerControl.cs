@@ -60,9 +60,14 @@ public class PlayerControl : MonoBehaviour {
 
 		/*Levelling*/
 		currentLevel = scoreKeeper.getLevel (scoreKeeper.getScore ()) + 1;
-		if (level != currentLevel) {
-			setLevel (currentLevel);
-			isLevelUp = true;
+		if (level != currentLevel)
+		{
+			print ("Level : " + level + "\t\tcurLevel =  " +currentLevel);
+			levelUp.SetActive (true);
+//			print ("Activated");
+			StartCoroutine (delay (1F));
+//			print ("Deactivated");
+			level = currentLevel;
 		}
 		
 	}
@@ -102,14 +107,25 @@ public class PlayerControl : MonoBehaviour {
 		Time.timeScale = isPaused ? 0: 1;
 	}
 
+	/*
 	public void setLevel(int _level){
-		levelUp.SetActive (true);
+		levelUp.SetActive (false);
 //		Enemy.setEnemyInfo (_level);
+//		levelUp.SetActive (false);
+	}
+*/
+	public void setLevel(){
 		levelUp.SetActive (false);
 	}
 
 	private void levelUpMessage(){
-		levelUp.SetActive(true);
+		levelUp.SetActive(false);
+	}
+
+	IEnumerator delay( float _seconds) {
+		print ("Delay");
+		yield return new WaitForSeconds(_seconds);
+		levelUp.SetActive (false);
 	}
 
 }
